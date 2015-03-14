@@ -8,6 +8,7 @@ module Tokenable
       require 'securerandom'
       define_method("regenerate_#{attribute}") { update! attribute => self.class.generate_unique_secure_token(24) }
       before_create { self.send("#{attribute}=", self.class.generate_unique_secure_token(24)) unless self.send("#{attribute}?")}
+
     end
 
     def generate_unique_secure_token(n = 16)

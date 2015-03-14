@@ -15,7 +15,9 @@ class UsersController < ApplicationController
 
   def generate_token
     @user = User.find(params[:id])
+
     @user.regenerate_auth_token
+
     respond_with @user
   end
 
