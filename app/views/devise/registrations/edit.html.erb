@@ -32,10 +32,17 @@
       </div>
     </fieldset>
     <%= f.submit 'Update', :class => 'button right' %>
+
   <% end %>
 </div>
 <div class="authform">
 <h3>Cancel Account</h3>
 <p>Unhappy? We'll be sad to see you go.</p>
 <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button right' %>
+  <div class="generate-token">
+    <h3>Generate Auth Token</h3>
+    <p>If you want to generate API token please click below</p>
+    <p><%= auth_token_view resource.auth_token %></p>
+    <%= button_to "Generate token", generate_token_user_path(resource), :method => :post, :class => 'button right' %>
+  </div>
 </div>

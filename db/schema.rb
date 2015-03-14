@@ -11,10 +11,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150213072522) do
+ActiveRecord::Schema.define(version: 20150314141318) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "branches", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "project_id"
+  end
+
+  add_index "branches", ["project_id"], name: "index_branches_on_project_id", using: :btree
+  add_index "branches", ["user_id"], name: "index_branches_on_user_id", using: :btree
+
+  create_table "commits", force: :cascade do |t|
+    t.string   "name"
+    t.string   "hash_string"
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.integer  "branch_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "commits", ["branch_id"], name: "index_commits_on_branch_id", using: :btree
+  add_index "commits", ["project_id"], name: "index_commits_on_project_id", using: :btree
+  add_index "commits", ["user_id"], name: "index_commits_on_user_id", using: :btree
+
+  create_table "project_people", force: :cascade do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "project_people", ["project_id"], name: "index_project_people_on_project_id", using: :btree
+  add_index "project_people", ["user_id"], name: "index_project_people_on_user_id", using: :btree
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -30,9 +71,17 @@ ActiveRecord::Schema.define(version: 20150213072522) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
+    t.string   "auth_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "branches", "projects"
+  add_foreign_key "branches", "users"
+  add_foreign_key "commits", "branches"
+  add_foreign_key "commits", "projects"
+  add_foreign_key "commits", "users"
+  add_foreign_key "project_people", "projects"
+  add_foreign_key "project_people", "users"
 end
