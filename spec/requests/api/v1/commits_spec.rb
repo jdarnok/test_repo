@@ -1,9 +1,11 @@
 describe "Commits API" do
+
   let(:user) { create :user }
 
   describe "#index" do
     it 'list of commits' do
       create_list(:commit, 5, user: user)
+
       get "/api/commits", {}, set_auth_token(user)
 
       expect(json['commits'].length).to eq(5)
@@ -20,6 +22,7 @@ describe "Commits API" do
   end
 
   describe "#destroy" do
+
     let(:commit) { create(:commit, user: user) }
 
     context 'when object is not owned' do
@@ -30,4 +33,5 @@ describe "Commits API" do
       end
     end
   end
+
 end

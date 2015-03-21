@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 ruby '2.2.0'
-gem 'pg'
 gem 'rails', '4.2.0'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -18,6 +17,9 @@ gem 'devise'
 gem 'haml-rails'
 gem 'high_voltage'
 gem 'pg'
+gem 'redis'
+gem 'active_model_serializers'
+gem 'httparty'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
