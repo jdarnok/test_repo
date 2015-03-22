@@ -20,6 +20,10 @@ gem 'pg'
 gem 'redis'
 gem 'active_model_serializers'
 gem 'httparty'
+gem 'doorkeeper'
+gem 'omniauth-oauth2'
+gem 'omniauth'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]

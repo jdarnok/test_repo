@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-
+  has_many :branches
   has_many :project_people
   has_many :projects, through: :project_people
   has_many :commits

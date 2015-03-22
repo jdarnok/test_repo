@@ -1,5 +1,8 @@
-class Api::V1:: BranchesController < ApiController
+class Api::V2::BranchesController < ApplicationController
+  respond_to :json
   before_action :set_branch, only: [:show, :destroy, :update]
+  before_action :doorkeeper_authorize!
+
 def index
     @branches = Branch.all
     render json: @branches
